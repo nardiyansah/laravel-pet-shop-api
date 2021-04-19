@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Item;
 
-class UserController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $resultl = User::all();
+        //
+        $result = Item::all();
         return $result;
     }
 
@@ -26,7 +27,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $result = User::create($request->all());
+        //
+        $result = Item::create($request->all());
         return $result;
     }
 
@@ -38,7 +40,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return User::find($id);
+        //
+        return Item::find($id);
     }
 
     /**
@@ -50,7 +53,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $result = User::find($id)->update($request->all());
+        //
+        $result = Item::find($id)->update($request->all());
         return $result;
     }
 
@@ -62,7 +66,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $result = User::destroy($id);
+        //
+        $result = Item::destroy($id);
         return $result;
     }
 }
