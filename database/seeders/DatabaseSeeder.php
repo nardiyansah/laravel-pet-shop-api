@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+use App\Models\User;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,12 +18,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
-            'password' => Hash::make('password'),
-            'created_at' => \Carbon\Carbon::now(),
-            'updated_at' => \Carbon\Carbon::now(),
-        ]);
+        // seed admin to user table
+        $user = new User;
+
+        $user->name = 'admin1';
+        $user->password = 'password';
+        $user->email = 'admin@gmail.com';
+        $user->role = 'admin';
+        $user->address = 'jln. kenangan';
+
+        $user->save();
     }
 }
