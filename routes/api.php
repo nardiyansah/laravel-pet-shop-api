@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Http\Controllers\ItemController;
 
 Route::resource('users', UserController::class);
 Route::resource('items', ItemController::class);
+Route::resource('orders', OrderController::class);
 
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
