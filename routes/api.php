@@ -22,6 +22,9 @@ Route::resource('users', UserController::class);
 Route::resource('items', ItemController::class);
 Route::resource('orders', OrderController::class);
 
+// route about
+Route::get('about', [UserController::class, 'about']);
+
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

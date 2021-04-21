@@ -65,4 +65,15 @@ class UserController extends Controller
         $result = User::destroy($id);
         return $result;
     }
+
+    public function about()
+    {
+        $about = "Kami adalah penyedia segala kebutuhan peliharaan anda";
+        $address = User::find(1)->all()[0]["address"];
+        
+        $data["about"] = $about;
+        $data["address"] = $address;
+
+        return $data;
+    }
 }
