@@ -76,4 +76,27 @@ class UserController extends Controller
 
         return $data;
     }
+
+    public function login(Request $request)
+    {
+        $data = $request->all();
+        if(empty($data["name"])) {
+            $data["name"] = '';
+        }
+        if(empty($data["password"])) {
+            $data["password"] = '';
+        }
+
+        $result = User::where('name', $data["name"])->where('password', $data["password"])->get();
+
+        if (empty($result[0])) {
+            $response["message"] = "user does'n exist";
+            $response["code"] = 404;
+        } else {
+            $response["message"] = "user exist";
+            $response["code"] = 200;
+        }
+
+        return $response;
+    }
 }

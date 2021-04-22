@@ -25,6 +25,9 @@ Route::resource('orders', OrderController::class);
 // route about
 Route::get('about', [UserController::class, 'about']);
 
+// route login
+Route::post('login', [UserController::class, 'login']);
+
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
