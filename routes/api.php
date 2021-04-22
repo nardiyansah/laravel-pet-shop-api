@@ -28,6 +28,9 @@ Route::get('about', [UserController::class, 'about']);
 // route login
 Route::post('login', [UserController::class, 'login']);
 
+// route checkout
+Route::post('orders/checkout', [OrderController::class, 'checkout']);
+
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

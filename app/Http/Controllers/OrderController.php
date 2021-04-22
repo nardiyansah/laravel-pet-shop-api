@@ -65,4 +65,11 @@ class OrderController extends Controller
         $result = Order::destroy($id);
         return $result;
     }
+
+    public function checkout(Request $request)
+    {
+        $orderKey = $request->all()["key"];
+        $result = Order::where('order_key', $orderKey)->update(['status' => 'CHECKOUT']);
+        return $result;
+    }
 }
