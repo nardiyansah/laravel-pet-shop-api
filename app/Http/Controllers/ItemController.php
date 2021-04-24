@@ -27,9 +27,28 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $result = Item::create($request->all());
-        return $result;
+        // cek apakah ada file nya
+        if ($request->hasFile('image')) {
+            // apakah upload berhasil
+            if ($request->file('image')->isValid()) {
+                $imageName = $request->file('image')->getClientOriginalName();
+                $data = $request->all();
+                $data['image'] = url('/') . '/' . $imageName;
+
+                // move image to public
+                $request->file('image')->move(public_path('/'), $imageName);
+                // store in database
+                $result = Item::create($data);
+
+                return $result;
+            }else{
+                $err['errMessage'] = 'error when uploading file';
+                return $err;
+            }
+        }else{
+            $err['errMessage'] = 'there is no file';
+            return $err;
+        }
     }
 
     /**
@@ -70,4 +89,5 @@ class ItemController extends Controller
         $result = Item::destroy($id);
         return $result;
     }
+    
 }

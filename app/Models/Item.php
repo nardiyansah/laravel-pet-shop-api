@@ -11,7 +11,7 @@ class Item extends Model
 
     protected $fillable = [
         'name',
-        'imageUrl',
+        'image',
         'price',
         'stok',
     ];
