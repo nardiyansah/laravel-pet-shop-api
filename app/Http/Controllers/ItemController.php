@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\File; 
 
 class ItemController extends Controller
 {
@@ -72,9 +73,33 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $result = Item::find($id)->update($request->all());
-        return $result;
+        // cek apakah ada file
+        if ($request->hasFile('image')) {
+            if ($request->file('image')->isValid()) {
+                $image = Item::find($id)->get()[0]->image;
+                $image = str_replace(url('/').'/', '', $data);
+                // delete file
+                File::delete($image);
+
+                $imageName = $request->file('image')->getClientOriginalName();
+                $data = $request->all();
+                $data['image'] = url('/') . '/' . $imageName;
+
+                // move image to public
+                $request->file('image')->move(public_path('/'), $imageName);
+
+                $result = Item::find($id)->update($data);
+
+                return $result;
+            }else{
+                $err['errMessage'] = 'error when uploading file';
+                return $err;
+            }
+        }else{
+            $result = Item::find($id)->update($request->all());
+            return $result;
+        }
+        
     }
 
     /**
