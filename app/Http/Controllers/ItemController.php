@@ -34,14 +34,14 @@ class ItemController extends Controller
             if ($request->file('image')->isValid()) {
                 $imageName = $request->file('image')->getClientOriginalName();
                 $data = $request->all();
-                $data['image'] = url('/') . '/' . $imageName;
+                $data['image'] = url('/items/') . '/' . $imageName;
 
                 // move image to public
-                $request->file('image')->move(public_path('/'), $imageName);
+                $request->file('image')->move(public_path('/items/'), $imageName);
                 // store in database
                 $result = Item::create($data);
 
-                return $result;
+                return $data;
             }else{
                 $err['errMessage'] = 'error when uploading file';
                 return $err;
