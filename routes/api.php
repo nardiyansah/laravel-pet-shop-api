@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ use App\Http\Controllers\OrderController;
 Route::resource('users', UserController::class);
 Route::resource('items', ItemController::class);
 Route::resource('orders', OrderController::class);
+Route::resource('categories', CategoryController::class);
 
 // route about
 Route::get('about', [UserController::class, 'about']);
