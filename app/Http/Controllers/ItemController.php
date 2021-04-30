@@ -34,7 +34,7 @@ class ItemController extends Controller
             if ($request->file('image')->isValid()) {
                 $imageName = $request->file('image')->getClientOriginalName();
                 $data = $request->all();
-                $data['image'] = url('/items/') . '/' . $imageName;
+                $data['image'] = url('/items') . '/' . $imageName;
 
                 // move image to public
                 $request->file('image')->move(public_path('/items/'), $imageName);
@@ -77,16 +77,16 @@ class ItemController extends Controller
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
                 $image = Item::find($id)->get()[0]->image;
-                $image = str_replace(url('/').'/', '', $data);
+                $image = str_replace(url('/items').'/', '', $data);
                 // delete file
                 File::delete($image);
 
                 $imageName = $request->file('image')->getClientOriginalName();
                 $data = $request->all();
-                $data['image'] = url('/') . '/' . $imageName;
+                $data['image'] = url('/items') . '/' . $imageName;
 
                 // move image to public
-                $request->file('image')->move(public_path('/'), $imageName);
+                $request->file('image')->move(public_path('/items/'), $imageName);
 
                 $result = Item::find($id)->update($data);
 
