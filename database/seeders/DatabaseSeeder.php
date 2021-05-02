@@ -22,13 +22,21 @@ class DatabaseSeeder extends Seeder
         // seed admin to user table
         $user = new User;
 
-        $user->name = 'admin';
-        $user->password = 'password';
-        $user->email = 'admin@gmail.com';
-        $user->role = 'admin';
-        $user->address = 'jln. kenangan';
+        $user->create([
+            'name' => 'admin',
+            'password' => 'password',
+            'email' => 'admin@gmail.com',
+            'role' => 'admin',
+            'address' => 'jln. kenangan'
+        ]);
 
-        $user->save();
+        $user->create([
+            'name' => 'user',
+            'password' => 'password',
+            'email' => 'user@gmail.com',
+            'role' => 'user',
+            'address' => 'jln. kenangan'
+        ]);
 
         // seed to categories table
         $category = new Category;

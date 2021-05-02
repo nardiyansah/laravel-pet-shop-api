@@ -95,6 +95,8 @@ class UserController extends Controller
         } else {
             $response["message"] = "user exist";
             $response["code"] = 200;
+            $response["userId"] = $result[0]->id;
+            $response["role"] = $result[0]->role;
         }
 
         return $response;
