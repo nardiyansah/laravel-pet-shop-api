@@ -50,8 +50,35 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $result = User::find($id)->update($request->all());
-        return $result;
+        // $result = User::find($id)->update($request->all());
+        // return $result;
+        
+        // cek apakah ada file
+        if ($request->hasFile('image')) {
+            if ($request->file('image')->isValid()) {
+                $image = User::find($id)->get()[0]->image;
+                $image = str_replace(url('/users').'/', '', $data);
+                // delete file
+                File::delete($image);
+
+                $imageName = $request->file('image')->getClientOriginalName();
+                $data = $request->all();
+                $data['image'] = url('/users') . '/' . $imageName;
+
+                // move image to public
+                $request->file('image')->move(public_path('/users/'), $imageName);
+
+                $result = User::find($id)->update($data);
+
+                return $result;
+            }else{
+                $err['errMessage'] = 'error when uploading file';
+                return $err;
+            }
+        }else{
+            $result = User::find($id)->update($request->all());
+            return $result;
+        }
     }
 
     /**

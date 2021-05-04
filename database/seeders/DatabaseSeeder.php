@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $user->create([
             'name' => 'admin',
+            'image' => 'http://192.168.43.15:8000/users/admin.jpg',
             'password' => 'password',
             'email' => 'admin@gmail.com',
             'phone' => '083456678910',
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
 
         $user->create([
             'name' => 'user',
+            'image' => 'http://192.168.43.15:8000/users/user.jpg',
             'password' => 'password',
             'email' => 'user@gmail.com',
             'phone' => '083345673214',
