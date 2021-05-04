@@ -22,7 +22,7 @@ class CreateItemsTable extends Migration
             $table->string('detail');
             $table->integer('price');
             $table->integer('stok');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

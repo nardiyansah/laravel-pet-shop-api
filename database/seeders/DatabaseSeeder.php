@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Item;
 
 class DatabaseSeeder extends Seeder
 {
@@ -60,5 +61,19 @@ class DatabaseSeeder extends Seeder
             'name' => 'medicine',
             'image' => url('/categories/medical.png')
         ]);
+
+        // seed items tables
+        $item = new Item;
+
+        $item->create([
+            'category_id' => 1,
+            'name' => 'Royal Canin',
+            'image' => url('/items/rc-persian.png'),
+            'detail' => 'Persian 2 kg', //ini untuk varian dan sejenisnya
+            'price' => 250000,
+            'stok' => 5,
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis, ultrices etiam id at id. Volutpat non facilisi consectetur ullamcorper hendrerit tortor suscipit quis. Sem eu amet nunc et, aliquet consectetur. Libero lobortis diam sapien vitae. Sollicitudin eget nisl urna vivamus quis.'
+        ]);
+
     }
 }
