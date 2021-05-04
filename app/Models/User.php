@@ -20,6 +20,7 @@ class User extends Model
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'role',
         'address'
@@ -30,9 +31,6 @@ class User extends Model
      *
      * @var array
      */
-    protected $hidden = [
-        'password',
-    ];
 
     /**
      * The attributes that should be cast to native types.
