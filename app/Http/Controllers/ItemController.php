@@ -41,7 +41,7 @@ class ItemController extends Controller
                 // store in database
                 $result = Item::create($data);
 
-                return $data;
+                return $result;
             }else{
                 $err['errMessage'] = 'error when uploading file';
                 return $err;
@@ -79,7 +79,7 @@ class ItemController extends Controller
                 $imageName = $request->file('image')->getClientOriginalName();
                 $data = $request->all();
                 $data['image'] = url('/items') . '/' . $imageName;
-                
+
                 $image = Item::find($id)->get()[0]->image;
                 $image = str_replace(url('/items').'/', '', $data);
                 // delete file
