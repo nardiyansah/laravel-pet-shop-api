@@ -33,6 +33,8 @@ Route::post('login', [UserController::class, 'login']);
 // route checkout
 Route::post('orders/checkout', [OrderController::class, 'checkout']);
 
+// route update profile with photo
+Route::post('users/update/{id}', [UserController::class, 'updatePhoto']);
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

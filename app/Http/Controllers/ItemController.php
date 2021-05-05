@@ -76,20 +76,20 @@ class ItemController extends Controller
         // cek apakah ada file
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
+                $imageName = $request->file('image')->getClientOriginalName();
+                $data = $request->all();
+                $data['image'] = url('/items') . '/' . $imageName;
+                
                 $image = Item::find($id)->get()[0]->image;
                 $image = str_replace(url('/items').'/', '', $data);
                 // delete file
                 File::delete($image);
 
-                $imageName = $request->file('image')->getClientOriginalName();
-                $data = $request->all();
-                $data['image'] = url('/items') . '/' . $imageName;
-
                 // move image to public
                 $request->file('image')->move(public_path('/items/'), $imageName);
 
                 $result = Item::find($id)->update($data);
-
+                $result = Item::find($id);
                 return $result;
             }else{
                 $err['errMessage'] = 'error when uploading file';
@@ -97,6 +97,7 @@ class ItemController extends Controller
             }
         }else{
             $result = Item::find($id)->update($request->all());
+            $result = Item::find($id);
             return $result;
         }
         

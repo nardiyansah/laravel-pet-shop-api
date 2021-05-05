@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use File;
 
 class UserController extends Controller
 {
@@ -49,35 +50,34 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        // $result = User::find($id)->update($request->all());
-        // return $result;
-        
-        // cek apakah ada file
+    {   
+        $result = User::find($id)->update($request->all());
+        $result = User::find($id);
+        return $result;
+    }
+
+    public function updatePhoto(Request $request, $id) {
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
-                $image = User::find($id)->get()[0]->image;
-                $image = str_replace(url('/users').'/', '', $data);
-                // delete file
-                File::delete($image);
-
                 $imageName = $request->file('image')->getClientOriginalName();
                 $data = $request->all();
-                $data['image'] = url('/users') . '/' . $imageName;
+
+                $image = User::find($id)->image;
+                $image = str_replace(url('/users').'/', '', $image);
+                // delete file
+                File::delete(public_path('/users/'.$image));
 
                 // move image to public
                 $request->file('image')->move(public_path('/users/'), $imageName);
 
+                $data['image'] = url('/users') . '/' . $imageName;
                 $result = User::find($id)->update($data);
-
+                $result = User::find($id);
                 return $result;
             }else{
                 $err['errMessage'] = 'error when uploading file';
                 return $err;
             }
-        }else{
-            $result = User::find($id)->update($request->all());
-            return $result;
         }
     }
 
