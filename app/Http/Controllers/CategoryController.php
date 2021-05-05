@@ -36,7 +36,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->hasFile('image')) {
+            // apakah upload berhasil
+            if ($request->file('image')->isValid()) {
+                $imageName = $request->file('image')->getClientOriginalName();
+                $data = $request->all();
+                $data['image'] = url('/categories') . '/' . $imageName;
+
+                // move image to public
+                $request->file('image')->move(public_path('/categories/'), $imageName);
+                // store in database
+                $result = Category::create($data);
+
+                return $result;
+            }else{
+                $err['errMessage'] = 'error when uploading file';
+                return $err;
+            }
+        }else{
+            $err['errMessage'] = 'there is no file';
+            return $err;
+        }
     }
 
     /**
