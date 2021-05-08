@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Item;
 
 class OrderController extends Controller
 {
@@ -29,6 +30,8 @@ class OrderController extends Controller
         $items = $request->json()->all();
 
         foreach ($items as $item) {
+            $stok = Item::where('id', $item['item_id'])->get()[0];
+            Item::where('id', $item['item_id'])->update(['stok' => $stok['stok']-$item['total_order']]);
             Order::create($item);
         }
 
