@@ -16,7 +16,7 @@ class ItemController extends Controller
     public function index()
     {
         //
-        $result = Item::all();
+        $result = Item::where('stok', '>', 0)->get();
         return $result;
     }
 
