@@ -115,5 +115,12 @@ class ItemController extends Controller
         $result = Item::destroy($id);
         return $result;
     }
+
+    public function soldout()
+    {
+        //
+        $result = Item::where('stok', '<=', 0)->get();
+        return $result;
+    }
     
 }

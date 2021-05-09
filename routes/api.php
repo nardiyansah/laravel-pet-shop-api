@@ -36,6 +36,9 @@ Route::post('orders/checkout', [OrderController::class, 'checkout']);
 // route update profile with photo
 Route::post('users/update/{id}', [UserController::class, 'updatePhoto']);
 
+// route soldout
+Route::get('soldout', [ItemController::class, 'soldout']);
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
