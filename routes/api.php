@@ -39,6 +39,15 @@ Route::post('users/update/{id}', [UserController::class, 'updatePhoto']);
 // route soldout
 Route::get('soldout', [ItemController::class, 'soldout']);
 
+// get order summary current month
+Route::get('currentMonth', [OrderController::class, 'currentMonth']);
+
+// get order summary current year
+Route::get('currentYear', [OrderController::class, 'currentYear']);
+
+// get order summary all
+Route::get('summary', [OrderController::class, 'summaryAll']);
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

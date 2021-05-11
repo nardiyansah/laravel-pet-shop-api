@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Item;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -78,6 +80,24 @@ class OrderController extends Controller
     {
         $orderKey = $request->all()["key"];
         $result = Order::where('order_key', $orderKey)->update(['status' => 'CHECKOUT']);
+        return $result;
+    }
+
+    public function currentMonth() {
+        $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->whereMonth('orders.created_at', Carbon::now()->month)->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
+
+        return $result;
+    }
+
+    public function currentYear() {
+        $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->whereYear('orders.created_at', Carbon::now()->year)->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
+
+        return $result;
+    }
+
+    public function summaryAll() {
+        $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
+
         return $result;
     }
 }
