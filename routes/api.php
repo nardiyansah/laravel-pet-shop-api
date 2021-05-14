@@ -52,6 +52,9 @@ Route::get('currentYear', [OrderController::class, 'currentYear']);
 // get order summary all
 Route::get('summary', [OrderController::class, 'summaryAll']);
 
+
+Route::get('unprocessed', [OrderController::class, 'unprocessed']);
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
