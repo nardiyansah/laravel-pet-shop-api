@@ -31,7 +31,7 @@ Route::get('about', [UserController::class, 'about']);
 Route::post('login', [UserController::class, 'login']);
 
 // route checkout
-Route::post('orders/checkout', [OrderController::class, 'checkout']);
+Route::post('orders/processed', [OrderController::class, 'toProcessed']);
 
 // route update profile with photo
 Route::post('users/update/{id}', [UserController::class, 'updatePhoto']);

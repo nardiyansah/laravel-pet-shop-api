@@ -76,12 +76,6 @@ class OrderController extends Controller
         return $result;
     }
 
-    public function checkout(Request $request)
-    {
-        $orderKey = $request->all()["key"];
-        $result = Order::where('order_key', $orderKey)->update(['status' => 'CHECKOUT']);
-        return $result;
-    }
 
     public function currentMonth() {
         $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->whereMonth('orders.created_at', Carbon::now()->month)->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
@@ -116,6 +110,14 @@ class OrderController extends Controller
     public function finished() {
         $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->where('status', 'FINISHED')->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
 
+        return $result;
+    }
+
+    // change status
+    public function toProcessed(Request $request)
+    {
+        $orderKey = $request->all()["key"];
+        $result = Order::where('order_key', $orderKey)->update(['status' => 'PROCESSED']);
         return $result;
     }
 }
