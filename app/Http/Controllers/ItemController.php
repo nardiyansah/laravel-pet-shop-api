@@ -73,21 +73,26 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // cek apakah ada file
+        $result = Item::find($id)->update($request->all());
+        $result = Item::find($id);
+        return $result;   
+    }
+
+    public function updatePhoto(Request $request, $id) {
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
                 $imageName = $request->file('image')->getClientOriginalName();
                 $data = $request->all();
-                $data['image'] = url('/items') . '/' . $imageName;
 
-                $image = Item::find($id)->get()[0]->image;
-                $image = str_replace(url('/items').'/', '', $data);
+                $image = Item::find($id)->image;
+                $image = str_replace(url('/items').'/', '', $image);
                 // delete file
-                File::delete($image);
+                File::delete(public_path('/items/'.$image));
 
                 // move image to public
                 $request->file('image')->move(public_path('/items/'), $imageName);
 
+                $data['image'] = url('/items') . '/' . $imageName;
                 $result = Item::find($id)->update($data);
                 $result = Item::find($id);
                 return $result;
@@ -95,13 +100,10 @@ class ItemController extends Controller
                 $err['errMessage'] = 'error when uploading file';
                 return $err;
             }
-        }else{
-            $result = Item::find($id)->update($request->all());
-            $result = Item::find($id);
-            return $result;
         }
-        
     }
+
+
 
     /**
      * Remove the specified resource from storage.
