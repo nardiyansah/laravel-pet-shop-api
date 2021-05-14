@@ -33,11 +33,13 @@ Route::post('login', [UserController::class, 'login']);
 // route checkout
 Route::post('orders/processed', [OrderController::class, 'toProcessed']);
 
+// route get order base order_key
+Route::post('orders/whereOrderKey', [OrderController::class, 'whereOrderKey']);
+
 // route update profile with photo
 Route::post('users/update/{id}', [UserController::class, 'updatePhoto']);
 
 // route update item with photo
-// route update profile with photo
 Route::post('items/update/{id}', [ItemController::class, 'updatePhoto']);
 
 // route soldout
