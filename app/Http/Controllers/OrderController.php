@@ -102,7 +102,7 @@ class OrderController extends Controller
     }
 
     public function unprocessed() {
-        $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->where('order_key', 'WAITING')->orWhere('order_key', 'UNPROCESSED')->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
+        $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->where('status', 'WAITING')->orWhere('status', 'UNPROCESSED')->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
 
         return $result;
     }
