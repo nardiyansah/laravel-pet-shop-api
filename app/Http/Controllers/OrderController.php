@@ -123,7 +123,7 @@ class OrderController extends Controller
 
     public function whereOrderKey(Request $request) {
         $orderKey = $request->all()["key"];
-        $result = Order::select('items.name', 'items.detail', 'items.price', 'orders.total_order')->join('items', 'items.id', '=', 'orders.item_id')->where('order_key', $orderKey)->get();
+        $result = Order::select('items.name', 'items.detail', 'items.price', 'items.image', 'items.id', 'orders.total_order')->join('items', 'items.id', '=', 'orders.item_id')->where('order_key', $orderKey)->get();
         return $result;
     }
 }
