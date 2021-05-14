@@ -54,6 +54,8 @@ Route::get('summary', [OrderController::class, 'summaryAll']);
 
 
 Route::get('unprocessed', [OrderController::class, 'unprocessed']);
+Route::get('processed', [OrderController::class, 'processed']);
+Route::get('finished', [OrderController::class, 'finished']);
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();

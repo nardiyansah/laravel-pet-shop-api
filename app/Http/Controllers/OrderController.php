@@ -106,4 +106,16 @@ class OrderController extends Controller
 
         return $result;
     }
+
+    public function processed() {
+        $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->where('status', 'PROCESSED')->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
+
+        return $result;
+    }
+
+    public function finished() {
+        $result = Order::select('users.name', 'users.phone', 'orders.order_key', 'orders.created_at', DB::raw('SUM(items.price * orders.total_order) AS sum_income'))->join('users', 'users.id', '=', 'orders.user_id')->join('items', 'items.id', '=', 'orders.item_id')->where('status', 'FINISHED')->groupBy('users.name', 'users.phone', 'orders.order_key', 'orders.created_at')->get();
+
+        return $result;
+    }
 }
