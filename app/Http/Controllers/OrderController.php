@@ -121,6 +121,13 @@ class OrderController extends Controller
         return $result;
     }
 
+    public function toFinished(Request $request)
+    {
+        $orderKey = $request->all()["key"];
+        $result = Order::where('order_key', $orderKey)->update(['status' => 'FINISHED']);
+        return $result;
+    }
+
     public function whereOrderKey(Request $request) {
         $orderKey = $request->all()["key"];
         $result = Order::select('items.name', 'items.detail', 'items.price', 'items.image', 'items.id', 'orders.total_order')->join('items', 'items.id', '=', 'orders.item_id')->where('order_key', $orderKey)->get();

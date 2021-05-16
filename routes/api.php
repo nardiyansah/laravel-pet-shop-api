@@ -33,6 +33,8 @@ Route::post('login', [UserController::class, 'login']);
 // route checkout
 Route::post('orders/processed', [OrderController::class, 'toProcessed']);
 
+Route::post('orders/finished', [OrderController::class, 'toFinished']);
+
 // route get order base order_key
 Route::post('orders/whereOrderKey', [OrderController::class, 'whereOrderKey']);
 
